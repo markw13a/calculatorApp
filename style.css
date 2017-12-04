@@ -1,0 +1,114 @@
+body{
+	width: 100vw;
+	height: 100vh;
+	border: 1px solid black;
+}
+
+button{
+	min-height: 35px;
+	min-width: 35px;
+	font-weight: bold;
+	
+}
+
+button:hover{
+	border: 1px solid #000;
+	color: #FFF;
+}
+
+.dummy{
+	opacity: 0;
+}
+
+.container{
+	width: 80%;
+	margin: 3% 10%;
+	min-height: 60px;
+	min-width:	220px;
+}
+
+#calculator{
+	max-width: 350px;
+	min-width:	250px;
+	height: 70%;
+	border: 1px dotted green;
+	margin: 5% 30%;
+}
+
+#calculator div{
+	position: relative;
+	display:inline-block;
+}
+
+#calculator #buttons{
+	border: 1px dotted blue;
+	height: 50%;
+	padding-top: 10%;
+}
+
+#calculator #numberBlock{
+	border: 1px dotted red;
+	max-width: 140px;
+	margin-left: 10%;
+	height: 80%;
+}
+
+#calculator #operations{
+	border: 1px dotted red;
+	max-width: 40px;
+	margin: 0;
+	height: 80%;
+}
+
+#calculator #display{
+	border: 1px dotted black;
+	display: block;
+	height: 30%;
+}
+
+#calculator #submit{
+	width: 180px;
+	margin-left: 10%;
+}
+
+#calculator #submit button{
+	width: 232px;
+}
+
+#display p{
+	width: 100%;
+	height: 100%;
+	border: 1px solid black;
+	margin: 0;
+	font-weight: bold;
+}
+
+@media (min-width: 500px){
+	button{
+		height: 50px;
+		width: 50px;
+	}
+	
+	.container{
+		min-width: 250px;
+	}
+	
+	#calculator{
+		width: 350px;
+	}
+	
+	#calculator #buttons{
+	border: 1px dotted blue;
+	min-width: 275px;
+	height: 50%;
+	}
+	
+	#calculator #numberBlock{
+		max-width: 175px;
+	}
+	#calculator #operations{
+	border: 1px dotted red;
+	max-width: 60px;
+	margin: 0;
+	}
+}
