@@ -7,45 +7,55 @@
 //Don't have brackets implemented. Is fine to just run through the division and multiplications operations first. 
 //When user clicks enter, sort the array. Division goes on top, multiplication further down.
 
-var operationStack = [{value: 4,operation: "MULTIPLY"}, {value: 2,operation: "SUBTRACT"}, {value: 19,operation: "DIVIDE"}, {value: 6,operation: "ENTER"}];
+var operationStack = [];
 var lastInt = ""; //The last integer to have been input by user. Updates everytime num key is clicked. Clicking an operation should clear this.
 var displayString = "";
 var displayDiv = document.querySelector("#display p");
 
-
 /*Setting up event listeners*/
-document.querySelector(".nine").addEventListener("click", function() {lastInt += 9; 
+document.querySelector(".nine").addEventListener("click", function() {
+	lastInt += 9; 
 	displayString+="9";
 	updateDisplay();});
-document.querySelector(".eight").addEventListener("click", function() {lastInt += 8; 
+document.querySelector(".eight").addEventListener("click", function() {
+	lastInt += 8; 
 	displayString+="8";
 	updateDisplay();});
-document.querySelector(".seven").addEventListener("click", function() {lastInt += 7;
+document.querySelector(".seven").addEventListener("click", function() {
+	lastInt += 7;
 	displayString+="7";
 	updateDisplay();});
-document.querySelector(".six").addEventListener("click", function() {lastInt += 6; 
+document.querySelector(".six").addEventListener("click", function() {
+	lastInt += 6; 
 	displayString+="6";
 	updateDisplay();});
-document.querySelector(".five").addEventListener("click", function() {lastInt += 5; 
+document.querySelector(".five").addEventListener("click", function() {
+	lastInt += 5; 
 	displayString+="5";
 	updateDisplay();});
-document.querySelector(".four").addEventListener("click", function() {lastInt += 4; 
+document.querySelector(".four").addEventListener("click", function() {
+	lastInt += 4; 
 	displayString+="4";
 	updateDisplay();});
-document.querySelector(".three").addEventListener("click", function() {lastInt += 3;
+document.querySelector(".three").addEventListener("click", function() {
+	lastInt += 3;
 	displayString+="3";
 	updateDisplay();});
-document.querySelector(".two").addEventListener("click", function() {lastInt += 2; 
+document.querySelector(".two").addEventListener("click", function() {
+	lastInt += 2; 
 	displayString+="2";
 	updateDisplay();});
-document.querySelector(".one").addEventListener("click", function() {lastInt += 1; 
+document.querySelector(".one").addEventListener("click", function() {
+	lastInt += 1; 
 	displayString+="1";
 	updateDisplay();});
-document.querySelector(".zero").addEventListener("click", function() {lastInt += 0; 
+document.querySelector(".zero").addEventListener("click", function() {
+	lastInt += 0; 
 	displayString+="0"; 
+	console.log(operationStack);//DELETE ME
 	updateDisplay();});
-
-
+	
+	
 document.querySelector(".plus").addEventListener("click", function() {
 	if (lastInt) {//Only makes sense to have an operator if user has first input a number
 		add();
@@ -78,7 +88,17 @@ document.querySelector(".times").addEventListener("click", function() {
 		updateDisplay();
 	}
 });
-
+document.querySelector(".equal").addEventListener("click", function() {
+		//Does nothing if last input was an operator, or if user has only entered a number so far.
+		if (lastInt && (typeof operationStack !== "undefined" && operationStack.length > 0)){
+			equals(); 
+			updateDisplay();
+		} else{
+			console.log("Invalid mathematical expression");
+		}
+	});
+	
+document.querySelector(".CLR").addEventListener("click", function() {clr();});
 /*Display functions*/
 
 function updateDisplay() {
@@ -106,7 +126,35 @@ function multiply() {
 }
 
 function equals() {
+	operationStack.push({value: +lastInt, operation: "END"});
 	
+	performDivide();
+	performMultiplication();	
+	console.log(operationStack);//DELETE ME
+	//Not safe to use a for loop as performAddition() and performSubtraction() remove elements from the array.
+	while (typeof operationStack !== "undefined" && operationStack.length > 0){
+		if (operationStack[0].operation === "ADD"){
+			performAddition();
+		} else if (operationStack[0].operation === "SUBTRACT") {
+			//Strictly speaking, an else{} would be fine. Just though this would be safer incase we decide to add more operations later
+			performSubtraction();
+		} else if (operationStack[0].operation === "END") {
+			console.log(operationStack[0].value);
+			displayString = operationStack[0].value;
+			/*SCRIPT TO RESET CALCULATOR STATE*/
+			operationStack = []; //DELETE ME
+			console.log(operationStack);
+		}
+	}
+}
+
+//Clears the calculator display and any associated data. Fresh state
+function clr(){
+	displayString = "";
+	updateDisplay();
+
+	operationStack = [];
+	lastInt = "";
 }
 
 //Add self onto the following value of the next operation. Delete self
@@ -120,16 +168,23 @@ function performSubtraction() {
 	operationStack.shift();
 }
 
+//Worried about potential for bugs with this function
 function performDivide() {
+	let i = -1;
 	//Had it find the node again just to maintain consistency with other perform... functions. Shouldn't have any arguments
 	//Bit wasteful, but user is unlikely to enter an overly long string of operations (x10^2 probably a decent order of mag. upper limit)
-	let index = operationStack.findIndex(obj => obj.operation === "DIVIDE");
-	operationStack[index+1].value = operationStack[index].value / operationStack[index+1].value;
-	operationStack.splice(index, 1);
+	while ((i = operationStack.findIndex(obj => obj.operation === "DIVIDE")) !== -1) {
+		operationStack[i+1].value = operationStack[i].value / operationStack[i+1].value;
+		operationStack.splice(i, 1);
+	}
 }
 
 function performMultiplication() {
-		let index = operationStack.findIndex(obj => obj.operation === "MULTIPLY");
-		operationStack[index+1].value *= operationStack.splice(index, 1);
+		let i = -1;
+		while ((i  = operationStack.findIndex(obj => obj.operation === "MULTIPLY")) !== -1) {
+			console.log((operationStack[i].value));
+			operationStack[i+1].value *= (operationStack[i].value);
+			operationStack.splice(i, 1);
+		}
 }
 

@@ -83,6 +83,11 @@ button:hover{
 	font-weight: bold;
 }
 
+.clr{
+	position: absolute;
+	top: 0; left: 0;
+}
+
 @media (min-width: 500px){
 	button{
 		height: 50px;
