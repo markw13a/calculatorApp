@@ -5,15 +5,24 @@ body{
 }
 
 button{
-	min-height: 35px;
-	min-width: 35px;
+	min-height: 25px;
+	min-width: 25px;
 	font-weight: bold;
-	
+	background-color: #333333;
+	border: 1px solid #808080;
+	color: #FFF;
 }
 
 button:hover{
 	border: 1px solid #000;
-	color: #FFF;
+}
+
+.CLR{
+	background-color: #960000;
+}
+
+.op{
+	background-color:#7AA9DD	;
 }
 
 .dummy{
@@ -24,15 +33,16 @@ button:hover{
 	width: 80%;
 	margin: 3% 10%;
 	min-height: 60px;
-	min-width:	220px;
+	min-width:	120px;
 }
 
 #calculator{
-	max-width: 350px;
-	min-width:	250px;
-	height: 70%;
-	border: 1px dotted green;
+	width: 200px;
+	height: 260px;
 	margin: 5% 30%;
+	background-color: #808080;
+	border: 1px solid #333333;
+	border-radius: 15px;
 }
 
 #calculator div{
@@ -41,51 +51,45 @@ button:hover{
 }
 
 #calculator #buttons{
-	border: 1px dotted blue;
 	height: 50%;
-	padding-top: 10%;
 }
 
 #calculator #numberBlock{
-	border: 1px dotted red;
-	max-width: 140px;
+	max-width: 90px;
 	margin-left: 10%;
-	height: 80%;
 }
 
 #calculator #operations{
-	border: 1px dotted red;
-	max-width: 40px;
+	max-width: 30px;
 	margin: 0;
-	height: 80%;
 }
 
-#calculator #display{
-	border: 1px dotted black;
-	display: block;
-	height: 30%;
-}
-
-#calculator #submit{
+#calculator #top-bar{
 	width: 180px;
 	margin-left: 10%;
 }
 
+#calculator #display{
+	border: 1px solid #333333;
+	border-radius: 3px;
+	display: block;
+	height: 30%;
+	background-color: #808000;
+}
+
+#calculator #submit{
+	margin-left: 10%;
+}
+
 #calculator #submit button{
-	width: 232px;
+	width: 122px;
 }
 
 #display p{
 	width: 100%;
 	height: 100%;
-	border: 1px solid black;
 	margin: 0;
 	font-weight: bold;
-}
-
-.clr{
-	position: absolute;
-	top: 0; left: 0;
 }
 
 @media (min-width: 500px){
@@ -100,10 +104,10 @@ button:hover{
 	
 	#calculator{
 		width: 350px;
+		height: 500px;
 	}
 	
 	#calculator #buttons{
-	border: 1px dotted blue;
 	min-width: 275px;
 	height: 50%;
 	}
@@ -112,8 +116,11 @@ button:hover{
 		max-width: 175px;
 	}
 	#calculator #operations{
-	border: 1px dotted red;
 	max-width: 60px;
 	margin: 0;
 	}
+	
+	#calculator #submit button{
+	width: 232px;
+}
 }
